@@ -1,31 +1,31 @@
 # applehealthdata
 Extract Data from Apple Health App's XML Export
+https://github.com/tdda/applehealthdata
+からプログラムを拝借
 
-Discussed in blog posts at http://tdda.info, including:
+# Dockerの実行方法
+## 1. コンテナを作成する．
+``` bash
+# ymlやdockerfileを編集したから，buildしないとダメな場合
+docker compose -f compose.yml up --build -d
 
-  * v1.0: http://www.tdda.info/in-defence-of-xml-exporting-and-analysing-apple-health-data
+# buildをしなくてもいい場合
+docker compose -f compose.yml up  -d
+```
 
-  * v1.1: http://www.tdda.info/first-test
+## 2. コンテナ内に入る．
+``` bash
+docker exec -it applehealthdata bash
+```
 
-  * v1.2: http://www.tdda.info/unit-tests (pending)
+## 3. プログラムを実行する
+```bash
+# ヘルスケアアプリで生成した**.xmlファイルを指定する．その際，任意のディレクトリに入れておく．
+# 任意のディレクトリにワークアウト毎の心拍csvがsplit_heartrateに出力される
+python main.py data/2025**/**.xml
+```
 
-  * v1.3: http://www.tdda.info/extracting-more-apple-health-data (pending)
-
-
-
-Various commits are tagged with version numbers of the form v1.0 etc,
-so you can check out a particular version with
-
-    $ git checkout v1.0
-
-etc., provided you pull the tags
-
-    $ git pull --tags
-
-if your copy of git isn't set up to do this by default.
-
-NOTE: this will leave you in a "detached HEAD" state in git.
-You can get back to HEAD when you're finished by saying:
-
-    $ git checkout master
-
+## 3. コンテナを壊す
+``` bash
+docker compose -f compose.yml down   
+```
