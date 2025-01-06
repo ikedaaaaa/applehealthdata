@@ -63,3 +63,5 @@ target/
 
 # Emacs backup files
 *~
+
+testdata/
